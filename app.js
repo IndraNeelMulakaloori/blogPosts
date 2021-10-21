@@ -36,3 +36,15 @@ app.get("/", function (request, myServerResponse) {
   });
 
 });
+
+app.get("/about",function(request,myServerResponse){
+       myServerResponse.render('about',{
+                  aboutContent : aboutContent,
+       });
+});
+
+app.get("/contact",function(request,myServerResponse){
+  myServerResponse.render('contact',{
+             contactContent : contactContent,
+  });
+});
