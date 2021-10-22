@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const _ = require('lodash');
 
 const app = express();
 
@@ -72,20 +73,26 @@ app.post("/compose",function(request,myServerResponse){
 // :path - can be accesed in browser
 app.get("/posts/:postName",function(request,myServerResponse)
 {
-      let postName = request.params.postName;
+      let postName = _.lowerCase(request.params.postName);
   console.log(postName);
-  let flag = false;
-      posts.forEach(function(post)
-      {
-              if(postName == post.title)
-                flag = true;
-                
-              
-      });
-      if(flag)
-      console.log("match found");
+  //Using array.protoype.some method to filter out the postTitle
+  posts.forEach(function(post) {
+  
+           if(_.lowerCase(post.title) == postName)
+           {
+          console.log("match found");
+          myServerResponse.render('post',{
+                 postTitle : post.title,
+                 postBody : post.body,
+          });
+        }
 
-      else
-      console.log("Match not found");
+  });
+
+      // if(flag)
+      // console.log("match found");
+
+      // else
+      // console.log("Match not found");
 
 });
