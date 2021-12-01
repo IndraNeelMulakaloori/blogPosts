@@ -75,7 +75,7 @@ app.get("/contact",function(request,myServerResponse){
 
 app.get("/compose",function(request,myServerResponse){
     myServerResponse.render('compose',{
-
+           
     });
 });
 
@@ -93,11 +93,7 @@ Post.find({title : request.body.postTitle},function(err,result)
               title : request.body.postTitle,
               content : request.body.postBody,
             });
-            newPost.save(function(err)
-            {
-              if(!err)
-              myServerResponse.redirect("/");
-            });
+            newPost.save();
            }
 });
   //Requesting the title and content and saving in the document of MongoDb
@@ -137,4 +133,30 @@ app.get("/posts/:postId",function(request,myServerResponse)
                });
               }
   });
+});
+
+// app.get("/search",function(request,myServerResponse)
+// {
+//              myServerResponse.render('search',{
+                   
+//              });
+// });
+
+app.post("/search",function(request,myServerResponse)
+{
+          const searchTerm = request.body.searchTerm;
+          const reg = new RegExp(searchTerm,"i");
+          Post.find({title : reg},function(err,result)
+          {
+                      if(err)
+                      myServerResponse.render('error');
+                      else if(result != 0){
+                          myServerResponse.render('search',{
+                              postContent : result
+                          });
+                      }
+                      else{
+                        myServerResponse.render('error');
+                      }
+          });
 });
