@@ -6,7 +6,7 @@
 <% postContent.forEach(function(post) { %>
  <h1> <%= post.title  %>  </h1>  
 <p>
-    <%= post.body.substring(0,100) %>...
+    <%= post.content %>...
     <% let url = "/posts/" + post.title %> 
     <a href = " <%= url  %>"  >Read more</a>
  </p>
