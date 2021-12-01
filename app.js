@@ -93,7 +93,11 @@ Post.find({title : request.body.postTitle},function(err,result)
               title : request.body.postTitle,
               content : request.body.postBody,
             });
-            newPost.save();
+            newPost.save(function(err)
+            {
+              if(!err)
+              myServerResponse.redirect("/");
+            });
            }
 });
   //Requesting the title and content and saving in the document of MongoDb
@@ -103,28 +107,34 @@ Post.find({title : request.body.postTitle},function(err,result)
 
 //Express Route Parameters - Dynamic Routing 
 // :path - can be accesed in browser
-app.get("/posts/:postName",function(request,myServerResponse)
+app.get("/posts/:postId",function(request,myServerResponse)
 {
-      let postName = _.lowerCase(request.params.postName);
-  console.log(postName);
+      const reqpostId = request.params.postId;
+
   //Using array.protoype.some method to filter out the postTitle
-  posts.forEach(function(post) {
+  // posts.forEach(function(post) {
   
-           if(_.lowerCase(post.title) == postName)
-           {
-          console.log("match found");
-          myServerResponse.render('post',{
-                 postTitle : post.title,
-                 postBody : post.body,
-          });
-        }
+  //          if(_.lowerCase(post.title) == postName)
+  //          {
+  //         console.log("match found");
+  //         myServerResponse.render('post',{
+  //                postTitle : post.title,
+  //                postBody : post.body,
+  //         });
+  //       }
 
+  // });
+
+  //Using Database
+
+  Post.findOne({_id : reqpostId},function(err,result){
+               if(err)
+               console.log(err);
+               else {
+               myServerResponse.render('post',{
+                 postTitle : result.title,
+                 postBody : result.content,
+               });
+              }
   });
-
-      // if(flag)
-      // console.log("match found");
-
-      // else
-      // console.log("Match not found");
-
 });
