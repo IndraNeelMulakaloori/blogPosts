@@ -1,7 +1,8 @@
 # Blog Website
 
 A sample blog website to post articles.
-Currently there isn't any database support to store the articles.
+~~Currently there isn't any database support to store the articles.~~
+**Edited** :- MongoDB is used as For Crud operations
 
 ## Technologies Used:
 
