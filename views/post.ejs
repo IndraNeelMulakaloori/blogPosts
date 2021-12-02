@@ -4,5 +4,15 @@
 <p>
     <%= postBody  %>
 </p>
-
+<form action="/delete" method="post">
+    <input type="hidden" name="postId" value = <%=postID%>>
+    <button type="submit" class="btn btn-danger btn-place" onclick="del()">Delete</button>
+    <!-- del() function to for confirm deletion of article -->
+</form>
+<script>
+     function del()
+     {
+        return confirm('Do you really want to Delete the article');
+     }
+</script>
 <%- include('partials/footer')  -%>

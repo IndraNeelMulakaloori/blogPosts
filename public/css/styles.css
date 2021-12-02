@@ -1,3 +1,14 @@
+.fill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+}
+.fill img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+}
 .header{
     background-color: wheat;
 }
@@ -27,18 +38,23 @@
 	text-align: center;
 	bottom: 0;
 	width: 100%;
-	height: 3.5rem;
+	height: 2.75rem;
 	background-color: #FDA65D;
 }
 
 .footer p {
-	margin-top: 25px;
+	margin-top: 16px;
 	font-size: 16px;
   color: #fff;
 }
 
 .navbar-nav{
     flex-direction: row;
+}
+
+form .btn-place{
+    position: relative;
+    left : 70%
 }
 /**************************************************************ID SELECTORS********************************************/
 
@@ -52,3 +68,4 @@
 #contact{
     padding-right: 16px;
 }
+
