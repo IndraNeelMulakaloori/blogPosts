@@ -106,28 +106,16 @@ Post.find({title : request.body.postTitle},function(err,result)
 app.get("/posts/:postId",function(request,myServerResponse)
 {
       const reqpostId = request.params.postId;
-
-  //Using array.protoype.some method to filter out the postTitle
-  // posts.forEach(function(post) {
-  
-  //          if(_.lowerCase(post.title) == postName)
-  //          {
-  //         console.log("match found");
-  //         myServerResponse.render('post',{
-  //                postTitle : post.title,
-  //                postBody : post.body,
-  //         });
-  //       }
-
-  // });
-
   //Using Database
-
   Post.findOne({_id : reqpostId},function(err,result){
-               if(err)
-               console.log(err);
+              if(err)
+              {
+                console.log(err);
+                myServerResponse.render('error');
+              }
                else {
                myServerResponse.render('post',{
+                 postID : reqpostId,
                  postTitle : result.title,
                  postBody : result.content,
                });
@@ -141,7 +129,7 @@ app.get("/posts/:postId",function(request,myServerResponse)
                    
 //              });
 // });
-
+//This route is used to search all the articles matching the word
 app.post("/search",function(request,myServerResponse)
 {
           const searchTerm = request.body.searchTerm;
@@ -149,7 +137,10 @@ app.post("/search",function(request,myServerResponse)
           Post.find({title : reg},function(err,result)
           {
                       if(err)
-                      myServerResponse.render('error');
+                      {
+                        console.log(err);
+                        myServerResponse.render('error');
+                      }
                       else if(result != 0){
                           myServerResponse.render('search',{
                               postContent : result
@@ -159,4 +150,20 @@ app.post("/search",function(request,myServerResponse)
                         myServerResponse.render('error');
                       }
           });
+});
+//This route is to find the PostID in the DB and delete the Article 
+app.post("/delete",function(request,myServerResponse)
+{
+           const postID = request.body.postId;
+
+           Post.findByIdAndDelete(postID,function(err,result)
+           {
+                        if(err)
+                        {
+                          console.log(err);
+                          myServerResponse.render('error');
+                        }
+           });
+
+
 });
