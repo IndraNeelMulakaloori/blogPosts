@@ -7,7 +7,7 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 
 //Adding mongoDB
-mongoose.connect("mongodb://localhost:27017/blogDB", {useNewUrlParser: true});
+mongoose.connect("mongodb+srv://IndraNeel:Indraneel%40965@freecluster.x4ha2.mongodb.net/blogDb");
 
 const app = express();
 
