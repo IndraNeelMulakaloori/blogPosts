@@ -2,9 +2,14 @@
 
 A sample blog website to post articles.
 ~~Currently there isn't any database support to store the articles.~~
-**Edited** :- MongoDB is used For Crud operations
+<br>
+## Updates : 
+- MongoDB is used As Database For **CRUD** operations
+- Search bar is added
+- Deletion of Articles is supported
 
-## Technologies Used:
+
+## Technologies/Libraries Used:
 
 - Node.js
 - Express library
