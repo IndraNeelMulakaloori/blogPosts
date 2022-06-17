@@ -164,6 +164,6 @@ app.post("/delete",function(request,myServerResponse)
                           myServerResponse.render('error');
                         }
            });
-
+myServerResponse.redirect("/");
 
 });
