@@ -73,33 +73,33 @@ app.get("/contact",function(request,myServerResponse){
   });
 });
 
-app.get("/compose",function(request,myServerResponse){
-    myServerResponse.render('compose',{
-           
-    });
-});
+app.route("/compose")
+.get(function(request,myServerResponse){
+  myServerResponse.render('compose',{
+  })})
+.post(function(request,myServerResponse){
+  //Find A post which matches the title
+  //If it doesn't match,Create a new Post
+  //i.e to avoid duplicate posts
+ Post.find({title : request.body.postTitle},function(err,result)
+ {
+            if(err)
+            console.log(err);
+            else if(result.length == 0)
+            {
+             const newPost = new Post({
+               title : request.body.postTitle,
+               content : request.body.postBody,
+             });
+             newPost.save();
+            }
+ });
+   //Requesting the title and content and saving in the document of MongoDb
+   
+   myServerResponse.redirect("/");
+ });
 
-app.post("/compose",function(request,myServerResponse){
- //Find A post which matches the title
- //If it doesn't match,Create a new Post
- //i.e to avoid duplicate posts
-Post.find({title : request.body.postTitle},function(err,result)
-{
-           if(err)
-           console.log(err);
-           else if(result.length == 0)
-           {
-            const newPost = new Post({
-              title : request.body.postTitle,
-              content : request.body.postBody,
-            });
-            newPost.save();
-           }
-});
-  //Requesting the title and content and saving in the document of MongoDb
-  
-  myServerResponse.redirect("/");
-});
+// app.post("/compose",
 
 //Express Route Parameters - Dynamic Routing 
 // :path - can be accesed in browser
